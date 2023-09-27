@@ -1,4 +1,5 @@
 const {Schema, model} = require('mongoose')
+const mongoose = require('mongoose')
 
 const taskSchema = new Schema({
     description: {
@@ -9,6 +10,11 @@ const taskSchema = new Schema({
     completed: {
          type: Boolean,
          default: false
+    }, 
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
     }
 })
 
