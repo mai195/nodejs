@@ -48,6 +48,8 @@ const userSchema = new Schema({
             required: true
         }
     }]
+}, {
+    timestamps: true
 })
 
 userSchema.virtual('tasks', {
