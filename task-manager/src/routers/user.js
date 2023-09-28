@@ -1,5 +1,6 @@
 const express = require('express')
 const User = require('../models/user')
+const Task = require('../models/task')
 const auth = require('../middleware/auth')
 const router = new express.Router()
 
@@ -88,6 +89,10 @@ router.patch('/users/me', auth, async(req, res) => {
 
 router.delete('/users/me', auth, async(req, res) => {
     try{
+        // delete their tasks first
+        await Task.deleteMany({owner: req.user._id})
+
+        // then delete the user
         await User.findByIdAndDelete(req.user._id)
 
         // const user = await User.findByIdAndDelete(req.user._id)
